@@ -31,8 +31,8 @@ tasks:
       /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
   - name: kubectl
     command: >
-      curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl &&
-      sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl &&
+      curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl > /workspace/kubectl &&
+      sudo install -o root -g root -m 0755 /workspace/kubectl /usr/local/bin/kubectl &&
       kubectl version --client &&
       gp sync-done init-kubectl
       
@@ -45,9 +45,9 @@ tasks:
   - name: awscli
     init: gp sync-await init-python
     command: >
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" &&
-      unzip -o awscliv2.zip &&
-      sudo ./aws/install &&
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" > /workspace/awscliv2.zip &&
+      unzip -o /workspace/awscliv2.zip &&
+      sudo /workspace/aws/install &&
       gp sync-done init-awscli
     
   - name: eksctl
@@ -62,8 +62,9 @@ tasks:
     init: gp sync-await init-eksctl
     command: >
       cat ./config/init
-  - name: helm
-    command: >
-      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 &&
-      chmod 700 get_helm.sh &&
-      ./get_helm.sh
+
+  # - name: helm
+  #   command: >
+  #     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 &&
+  #     chmod 700 get_helm.sh &&
+  #     ./get_helm.sh
