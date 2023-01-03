@@ -29,9 +29,13 @@ tasks:
       sudo -s &&
       export JAVA_HOME=/usr/lib/jdk-16.0.2 &&
       /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
+  
+  # curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl -o /workspace/kubectl
+  # -LO 옵션 수행시 현재 경로에도 다운받고, 아웃풋 디렉토리에도 다운받는다
+  
   - name: kubectl
     command: >
-      curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl > /workspace/kubectl &&
+      curl https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl -o /workspace/kubectl &&
       sudo install -o root -g root -m 0755 /workspace/kubectl /usr/local/bin/kubectl &&
       kubectl version --client &&
       gp sync-done init-kubectl
@@ -45,8 +49,8 @@ tasks:
   - name: awscli
     init: gp sync-await init-python
     command: >
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" > /workspace/awscliv2.zip &&
-      unzip -o /workspace/awscliv2.zip &&
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /workspace/awscliv2.zip &&
+      unzip -o /workspace/awscliv2 /workspace &&
       sudo /workspace/aws/install &&
       gp sync-done init-awscli
     
