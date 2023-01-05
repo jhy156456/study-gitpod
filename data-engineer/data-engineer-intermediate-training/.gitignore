@@ -1,21 +1,21 @@
 # Custom
-.idea/
-env
-run.sh
-backup/
-.template
-.DS_Store
-__pycache__/
-.ipynb_checkpoints/
-**/.ipynb_checkpoints/
-datanode/
-namenode/
-nodes/
-logs/
-target/
-tmp/
-dimension/
-spark-warehouse/
+# .idea/
+# env
+# run.sh
+# backup/
+# .template
+# .DS_Store
+# __pycache__/
+# .ipynb_checkpoints/
+# **/.ipynb_checkpoints/
+# datanode/
+# namenode/
+# nodes/
+# logs/
+# target/
+# tmp/
+# dimension/
+# spark-warehouse/
 
 # Created by https://www.toptal.com/developers/gitignore/api/git
 # Edit at https://www.toptal.com/developers/gitignore?templates=git
