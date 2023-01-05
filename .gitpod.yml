@@ -15,18 +15,18 @@ tasks:
   - name: kafka-zookeeper
     command: > 
       sudo apt-get update && sudo apt-get upgrade -y &&
-      sudo apt-get install openjdk-11-jdk &&
+      sudo apt-get install openjdk-11-jdk -y &&
       cd /usr/local &&
       sudo wget https://archive.apache.org/dist/kafka/2.5.0/kafka_2.12-2.5.0.tgz &&
       sudo tar xvf kafka_2.12-2.5.0.tgz &&
       sudo mv kafka_2.12-2.5.0 /usr/local/kafka &&
-      /usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
+      sudo /usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
       gp sync-done init-zookeeper
 
   - name: kafka-server 
+    init : gp sync-await init-zookeeper
     command: > 
-      gp sync-await init-zookeeper
-      /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
+      sudo /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
   
   # curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl -o /workspace/kubectl
   # -LO 옵션 수행시 현재 경로에도 다운받고, 아웃풋 디렉토리에도 다운받는다
