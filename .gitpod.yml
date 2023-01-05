@@ -33,7 +33,8 @@ tasks:
   - name: kafka-server 
     init : gp sync-await init-zookeeper
     command: > 
-      sudo /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
+      sudo /usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties &&
+      gp sync-done init-kafka-server
   
   # curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl -o /workspace/kubectl
   # -LO 옵션 수행시 현재 경로에도 다운받고, 아웃풋 디렉토리에도 다운받는다
@@ -47,7 +48,7 @@ tasks:
       kubectl version --client
       
   - name: python
-    init: sudo apt install python-is-python3
+    init: gp sync-await init-kafka-server
     command: >
       sudo apt install python-is-python3 &&
       python --versions
