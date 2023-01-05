@@ -1,11 +1,17 @@
 tasks:
   - name: httpie
-    command: pip install httpie
+    init : >
+      sudo apt-get update && sudo apt-get upgrade -y 
+    command: >
+      pip install httpie &&
+      gp sync-done init-httpie
 
   - name: siege
     command: >
+      gp sync-await init-httpie &&
       sudo apt-get install siege &&
-      siege -V
+      siege -V &&
+      gp sync-done init-siege
     
   - name: kafka-docker
     command: > 
@@ -14,9 +20,9 @@ tasks:
 
   - name: kafka-zookeeper
     init : >
-      sudo apt-get update && sudo apt-get upgrade -y
+      gp sync-await init-siege
+      sudo apt-get install openjdk-11-jdk -y  
     command: > 
-      sudo apt-get install openjdk-11-jdk -y &&
       cd /usr/local &&
       sudo wget https://archive.apache.org/dist/kafka/2.5.0/kafka_2.12-2.5.0.tgz &&
       sudo tar xvf kafka_2.12-2.5.0.tgz &&
