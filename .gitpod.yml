@@ -20,7 +20,7 @@ tasks:
 
   - name: kafka-zookeeper
     init : >
-      gp sync-await init-siege
+      gp sync-await init-siege &&
       sudo apt-get install openjdk-11-jdk -y  
     command: > 
       cd /usr/local &&
