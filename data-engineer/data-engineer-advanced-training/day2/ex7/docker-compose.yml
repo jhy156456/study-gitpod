@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  fluentd:
+    container_name: multi-process
+    image: psyoblade/data-engineer-fluentd:2.2
+    stdin_open: true
+    tty: true
+    user: root
+    volumes:
+      - ./fluent.conf:/etc/fluentd/fluent.conf
+      - ./source:/fluentd/source
+      - ./target:/fluentd/target
+    ports:
+      - 9880:9880
+      - 24224:24224
+      - 24224:24224/udp
+    networks:
+      - default
+    entrypoint: [ "fluentd" ]
+
+networks:
+  default:
+    name: day2_ex7_network
