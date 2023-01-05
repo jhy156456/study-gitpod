@@ -41,31 +41,26 @@ tasks:
       gp sync-done init-kubectl
       
   - name: python
-    init: gp sync-await init-kubectl
+    init: sudo apt install python-is-python3
     command: >
       sudo apt install python-is-python3 &&
-      gp sync-done init-python
+      python --versions
       
   - name: awscli
-    init: gp sync-await init-python
     command: >
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /workspace/awscliv2.zip &&
       unzip -o /workspace/awscliv2 /workspace &&
-      sudo /workspace/aws/install &&
-      gp sync-done init-awscli
+      sudo /workspace/aws/install
     
   - name: eksctl
-    init: gp sync-await init-awscli
     command: >
       curl --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp &&
       sudo mv /tmp/eksctl /usr/local/bin &&
-      eksctl version &&
-      gp sync-done init-eksctl
+      eksctl version 
       
-  - name: boot
-    init: gp sync-await init-eksctl
-    command: >
-      cat ./config/init
+  # - name: boot
+  #   command: >
+  #     cat ./config/init
 
   # - name: helm
   #   command: >
