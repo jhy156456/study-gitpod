@@ -62,10 +62,10 @@ tasks:
       eksctl version &&
       gp sync-done init-eksctl
       
-  # - name: boot
-  #   init: gp sync-await init-eksctl
-  #   command: >
-  #     cat ./config/init
+  - name: boot
+    init: gp sync-await init-eksctl
+    command: >
+      cat ./config/init
 
   # - name: helm
   #   command: >
