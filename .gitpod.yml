@@ -13,8 +13,9 @@ tasks:
       docker-compose up -d
 
   - name: kafka-zookeeper
+    init : >
+      sudo apt-get update && sudo apt-get upgrade -y
     command: > 
-      sudo apt-get update && sudo apt-get upgrade -y &&
       sudo apt-get install openjdk-11-jdk -y &&
       cd /usr/local &&
       sudo wget https://archive.apache.org/dist/kafka/2.5.0/kafka_2.12-2.5.0.tgz &&
