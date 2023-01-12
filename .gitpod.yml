@@ -27,8 +27,9 @@ tasks:
       sudo wget https://archive.apache.org/dist/kafka/2.5.0/kafka_2.12-2.5.0.tgz &&
       sudo tar xvf kafka_2.12-2.5.0.tgz &&
       sudo mv kafka_2.12-2.5.0 /usr/local/kafka &&
+      gp sync-done init-zookeeper &&
       sudo /usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
-      gp sync-done init-zookeeper
+      
 
   - name: kafka-server 
     init : gp sync-await init-zookeeper
